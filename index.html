@@ -24,16 +24,15 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-200 antialiased">
+<body class="bg-black text-gray-200 antialiased">
 
-    <!-- Main container -->
-    <div class="container mx-auto px-4 py-8 md:py-12">
+    <!-- Main centered container -->
+    <div class="container mx-auto max-w-3xl bg-gray-900 rounded-xl shadow-lg mt-8 md:mt-12 p-6 md:p-8">
 
-        <!-- Header Section -->
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">The Midnight Post</h1>
-            <p class="text-lg text-gray-400">A collection of thoughts, stories, and ideas.</p>
-            <nav class="mt-4">
+        <!-- New Header Section (inside the container) -->
+        <header class="flex justify-between items-center mb-8 md:mb-12">
+            <a href="#" id="logo" class="text-2xl font-bold text-white hover:text-gray-300 transition-colors">The Midnight Post</a>
+            <nav>
                 <!-- Login/Logout buttons will be controlled by JavaScript -->
                 <button id="login-nav-button" class="text-indigo-400 hover:text-indigo-300">Admin Login</button>
                 <button id="logout-nav-button" class="hidden text-pink-400 hover:text-pink-300">Logout</button>
@@ -42,7 +41,7 @@
 
         <!-- Blog View -->
         <div id="blog-view" class="view">
-            <main id="posts-container" class="max-w-3xl mx-auto">
+            <main id="posts-container">
                 <!-- Blog posts will be loaded here by JavaScript -->
                 <p class="text-center text-gray-500">Loading posts...</p>
             </main>
@@ -50,7 +49,7 @@
 
         <!-- Login View -->
         <div id="login-view" class="view hidden">
-            <div class="max-w-md mx-auto bg-gray-800 rounded-xl shadow-lg p-8">
+            <div class="bg-gray-800 rounded-xl p-8">
                 <h2 class="text-2xl font-bold text-white text-center mb-6">Admin Login</h2>
                 <form id="login-form">
                     <div class="mb-4">
@@ -69,7 +68,7 @@
 
         <!-- Admin View -->
         <div id="admin-view" class="view hidden">
-             <div class="max-w-3xl mx-auto bg-gray-800 rounded-xl shadow-lg p-8">
+             <div class="bg-gray-800 rounded-xl p-8">
                 <h2 class="text-2xl font-bold text-white text-center mb-6">Admin Panel</h2>
                 <form id="new-post-form">
                     <div class="mb-4">
@@ -97,14 +96,12 @@
                  <p id="publish-message" class="text-center mt-4"></p>
             </div>
         </div>
-
-
-        <!-- Footer -->
-        <footer class="text-center mt-12 text-gray-500">
-            <p>&copy; 2025 The Midnight Post. All Rights Reserved.</p>
-        </footer>
-
     </div>
+
+    <!-- Footer outside the main container -->
+    <footer class="text-center my-8 text-gray-600">
+        <p>&copy; 2025 The Midnight Post. All Rights Reserved.</p>
+    </footer>
 
     <!-- Firebase SDK -->
     <script type="module">
@@ -132,6 +129,7 @@
         const db = getFirestore(app);
 
         // DOM Elements
+        const logo = document.getElementById('logo');
         const blogView = document.getElementById('blog-view');
         const loginView = document.getElementById('login-view');
         const adminView = document.getElementById('admin-view');
@@ -147,10 +145,11 @@
 
         onAuthStateChanged(auth, user => {
             if (user) {
-                showAdminView();
+                // If user is logged in, always show admin button, ready for admin view
                 loginNavButton.classList.add('hidden');
                 logoutNavButton.classList.remove('hidden');
             } else {
+                // User is signed out, show the blog view by default
                 showBlogView();
                 loginNavButton.classList.remove('hidden');
                 logoutNavButton.classList.add('hidden');
@@ -164,6 +163,8 @@
             loginError.textContent = '';
             try {
                 await signInWithEmailAndPassword(auth, email, password);
+                // Auth state listener will show logout button, then we show admin view
+                showAdminView();
             } catch (error) {
                 console.error("Login Error:", error);
                 loginError.textContent = "Failed to login. Please check your credentials.";
@@ -173,6 +174,7 @@
         logoutNavButton.addEventListener('click', async () => {
             try {
                 await signOut(auth);
+                // Auth state listener will handle showing the blog view
             } catch (error) {
                 console.error("Logout Error:", error);
             }
@@ -195,7 +197,6 @@
                 const postElement = createPostElement(post);
                 postsContainer.appendChild(postElement);
 
-                // Add a separator after each post, except the last one
                 if (index < snapshot.docs.length - 1) {
                     const separator = document.createElement('hr');
                     separator.className = "border-gray-700 my-12 md:my-16";
@@ -259,7 +260,7 @@
         // Helper function to create a post HTML element
         function createPostElement(post) {
             const article = document.createElement('article');
-            article.className = 'w-full'; // Removed card styles
+            article.className = 'w-full';
             
             const formattedDate = post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Just now';
             const categoryColors = {
@@ -269,7 +270,6 @@
             };
             const categoryColor = categoryColors[post.category.toUpperCase()] || 'text-gray-400';
 
-            // Sanitize content and replace newlines with paragraphs for better formatting
             const sanitizedContent = post.content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             const formattedContent = sanitizedContent.split('\n').map(p => `<p>${p}</p>`).join('');
 
@@ -313,6 +313,10 @@
         }
         
         loginNavButton.addEventListener('click', showLoginView);
+        logo.addEventListener('click', (e) => {
+            e.preventDefault();
+            showBlogView();
+        });
 
     </script>
 </body>
