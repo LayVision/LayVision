@@ -1,557 +1,556 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LayVision</title>
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* Use the Inter font family */
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        /* Simple transition for view switching */
-        .view {
-            transition: opacity 0.3s ease-in-out;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body class="bg-black text-white antialiased">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LayVision</title>
+        <!-- Tailwind CSS for styling -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Google Fonts: Inter -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+        <style>
+            /* Use the Inter font family */
+            body {
+                font-family: 'Inter', sans-serif;
+            }
+            /* Simple transition for view switching */
+            .view {
+                transition: opacity 0.3s ease-in-out;
+            }
+            .hidden {
+                display: none;
+            }
+        </style>
+    </head>
+    <body class="bg-black text-white antialiased">
 
-    <!-- Main centered container -->
-    <div class="container mx-auto max-w-3xl p-6 md:p-8" style="background-color: #111111;">
+        <!-- Main centered container -->
+        <div class="container mx-auto max-w-3xl p-6 md:p-8" style="background-color: #111111;">
 
-        <!-- Header Section -->
-        <header class="flex justify-between items-center mb-8 md:mb-12">
-            <a href="#" id="logo" class="text-2xl font-bold hover:opacity-80 transition-opacity" style="color: #ff0066;">LayVision</a>
-            <nav>
-                <button id="login-nav-button" class="text-white hover:text-gray-300">Login</button>
-                <div id="admin-nav-buttons" class="hidden">
-                    <button id="new-post-nav-button" class="text-white hover:text-gray-300 mr-4">New Post</button>
-                    <button id="logout-nav-button" class="text-white hover:text-gray-300">Logout</button>
+            <!-- Header Section -->
+            <header class="flex justify-between items-center mb-8 md:mb-12">
+                <a href="#" id="logo" class="text-2xl font-bold hover:opacity-80 transition-opacity" style="color: #ff0066;">LayVision</a>
+                <nav>
+                    <button id="login-nav-button" class="text-white hover:text-gray-300">Login</button>
+                    <div id="admin-nav-buttons" class="hidden">
+                        <button id="new-post-nav-button" class="text-white hover:text-gray-300 mr-4">New Post</button>
+                        <button id="logout-nav-button" class="text-white hover:text-gray-300">Logout</button>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- Image Slider -->
+            <div id="image-slider" class="relative w-full h-40 mb-8 md:mb-12 overflow-hidden rounded-xl">
+                <div id="slider-container" class="flex h-full transition-transform duration-700 ease-in-out">
+                    <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=2069&auto=format&fit=crop" alt="Modern Coding Banner 1" class="w-full flex-shrink-0 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1200x600/111111/FFFFFF?text=Image+1';">
+                    <img src="https://images.unsplash.com/photo-1542903660-eedba2cda473?q=80&w=2070&auto=format&fit=crop" alt="Modern Coding Banner 2" class="w-full flex-shrink-0 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1200x600/1a202c/FFFFFF?text=Image+2';">
+                    <img src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?q=80&w=1964&auto=format&fit=crop" alt="Modern Coding Banner 3" class="w-full flex-shrink-0 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1200x600/2d3748/FFFFFF?text=Image+3';">
                 </div>
-            </nav>
-        </header>
-
-        <!-- Image Slider -->
-        <div id="image-slider" class="relative w-full h-40 mb-8 md:mb-12 overflow-hidden rounded-xl">
-            <div id="slider-container" class="flex h-full transition-transform duration-700 ease-in-out">
-                <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=2069&auto=format&fit=crop" alt="Modern Coding Banner 1" class="w-full flex-shrink-0 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1200x600/111111/FFFFFF?text=Image+1';">
-                <img src="https://images.unsplash.com/photo-1542903660-eedba2cda473?q=80&w=2070&auto=format&fit=crop" alt="Modern Coding Banner 2" class="w-full flex-shrink-0 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1200x600/1a202c/FFFFFF?text=Image+2';">
-                <img src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?q=80&w=1964&auto=format&fit=crop" alt="Modern Coding Banner 3" class="w-full flex-shrink-0 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1200x600/2d3748/FFFFFF?text=Image+3';">
+                <div id="slider-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3">
+                    <!-- Dots will be generated by JS -->
+                </div>
             </div>
-            <div id="slider-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3">
-                <!-- Dots will be generated by JS -->
+
+            <!-- Blog View -->
+            <div id="blog-view" class="view">
+                <main id="posts-container">
+                    <!-- Blog posts will be loaded here by JavaScript -->
+                    <p class="text-center text-gray-400">Loading posts...</p>
+                </main>
+                <div id="pagination-container" class="flex justify-center items-center space-x-2 mt-8 md:mt-12"></div>
             </div>
-        </div>
 
-        <!-- Blog View -->
-        <div id="blog-view" class="view">
-            <main id="posts-container">
-                <!-- Blog posts will be loaded here by JavaScript -->
-                <p class="text-center text-gray-400">Loading posts...</p>
-            </main>
-            <div id="pagination-container" class="flex justify-center items-center space-x-2 mt-8 md:mt-12"></div>
-        </div>
-
-        <!-- Login View -->
-        <div id="login-view" class="view hidden">
-            <div class="bg-gray-800 rounded-xl p-8">
-                <h2 class="text-2xl font-bold text-white text-center mb-6">Admin Login</h2>
-                <form id="login-form">
-                    <div class="mb-4">
-                        <label for="email" class="block text-gray-200 mb-2">Email</label>
-                        <input type="email" id="email" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white" required>
-                    </div>
-                    <div class="mb-6">
-                        <label for="password" class="block text-gray-200 mb-2">Password</label>
-                        <input type="password" id="password" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white" required>
-                    </div>
-                    <button type="submit" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded-lg transition-colors">Login</button>
-                </form>
-                <p id="login-error" class="text-red-500 text-center mt-4"></p>
+            <!-- Login View -->
+            <div id="login-view" class="view hidden">
+                <div class="bg-gray-800 rounded-xl p-8">
+                    <h2 class="text-2xl font-bold text-white text-center mb-6">Admin Login</h2>
+                    <form id="login-form">
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-200 mb-2">Email</label>
+                            <input type="email" id="email" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="password" class="block text-gray-200 mb-2">Password</label>
+                            <input type="password" id="password" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white" required>
+                        </div>
+                        <button type="submit" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded-lg transition-colors">Login</button>
+                    </form>
+                    <p id="login-error" class="text-red-500 text-center mt-4"></p>
+                </div>
             </div>
-        </div>
 
-        <!-- New Post View -->
-        <div id="new-post-view" class="view hidden">
-             <div class="bg-gray-800 rounded-xl p-8">
-                <h2 class="text-2xl font-bold text-white text-center mb-6">Create New Post</h2>
-                <form id="new-post-form">
-                    <div class="mb-4">
-                        <label for="post-title" class="block text-gray-200 mb-2">Title</label>
-                        <input type="text" id="post-title" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="post-content" class="block text-gray-200 mb-2">Content</label>
-                        <textarea id="post-content" rows="6" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label for="post-image-file" class="block text-gray-200 mb-2">Image</label>
-                        <input type="file" id="post-image-file" class="w-full text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-black hover:file:bg-white" accept="image/*" required>
-                    </div>
-                     <div class="mb-6">
-                        <label for="post-author" class="block text-gray-200 mb-2">Author Name</label>
-                        <input type="text" id="post-author" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
-                    </div>
-                    <button type="submit" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50">Publish Post</button>
-                </form>
-                 <p id="publish-message" class="text-center mt-4"></p>
+            <!-- New Post View -->
+            <div id="new-post-view" class="view hidden">
+                <div class="bg-gray-800 rounded-xl p-8">
+                    <h2 class="text-2xl font-bold text-white text-center mb-6">Create New Post</h2>
+                    <form id="new-post-form">
+                        <div class="mb-4">
+                            <label for="post-title" class="block text-gray-200 mb-2">Title</label>
+                            <input type="text" id="post-title" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="post-content" class="block text-gray-200 mb-2">Content</label>
+                            <textarea id="post-content" rows="6" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="post-image-file" class="block text-gray-200 mb-2">Image (Optional)</label>
+                            <input type="file" id="post-image-file" class="w-full text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-black hover:file:bg-white" accept="image/*">
+                        </div>
+                        <div class="mb-6">
+                            <label for="post-author" class="block text-gray-200 mb-2">Author Name</label>
+                            <input type="text" id="post-author" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
+                        </div>
+                        <button type="submit" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50">Publish Post</button>
+                    </form>
+                    <p id="publish-message" class="text-center mt-4"></p>
+                </div>
             </div>
-        </div>
-        
-        <!-- Edit Post View -->
-        <div id="edit-post-view" class="view hidden">
-             <div class="bg-gray-800 rounded-xl p-8">
-                <h2 class="text-2xl font-bold text-white text-center mb-6">Edit Post</h2>
-                <form id="edit-post-form">
-                    <input type="hidden" id="edit-post-id">
-                    <div class="mb-4">
-                        <label for="edit-post-title" class="block text-gray-200 mb-2">Title</label>
-                        <input type="text" id="edit-post-title" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="edit-post-content" class="block text-gray-200 mb-2">Content</label>
-                        <textarea id="edit-post-content" rows="6" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label for="edit-post-image-file" class="block text-gray-200 mb-2">Upload New Image (Optional)</label>
-                        <input type="file" id="edit-post-image-file" class="w-full text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-black hover:file:bg-white" accept="image/*">
-                    </div>
-                    <div class="mb-4">
-                        <label class="flex items-center text-gray-200">
-                            <input type="checkbox" id="delete-image-checkbox" class="h-4 w-4 text-red-600 bg-gray-700 border-gray-600 rounded focus:ring-red-500">
-                            <span class="ml-2 text-sm">Delete current image</span>
-                        </label>
-                    </div>
-                     <div class="mb-6">
-                        <label for="edit-post-author" class="block text-gray-200 mb-2">Author Name</label>
-                        <input type="text" id="edit-post-author" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
-                    </div>
-                    <div class="flex space-x-4">
-                        <button type="submit" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50">Save Changes</button>
-                        <button type="button" id="delete-post-button" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">Delete Post</button>
-                    </div>
-                </form>
-                 <p id="edit-message" class="text-center mt-4"></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer outside the main container -->
-    <footer class="text-center my-8 text-gray-400">
-        <p>&copy; 2025 LayVision. All Rights Reserved.</p>
-    </footer>
-
-    <!-- Firebase SDK -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy, doc, getDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Your Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAqElJCSBH1n90fIXY5sBHXfMyRP4eosnQ",
-            authDomain: "layvision-web.firebaseapp.com",
-            projectId: "layvision-web",
-            storageBucket: "layvision-web.appspot.com",
-            messagingSenderId: "545099266865",
-            appId: "1:545099266865:web:c44575b008003c03760e10"
-        };
-
-        // Your ImgBB API Key
-        const imgbbApiKey = "0ccae505d1ad6ab1656e50cb6e6f06cd";
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // DOM Elements
-        const logo = document.getElementById('logo');
-        const blogView = document.getElementById('blog-view');
-        const loginView = document.getElementById('login-view');
-        const newPostView = document.getElementById('new-post-view');
-        const editPostView = document.getElementById('edit-post-view');
-        const postsContainer = document.getElementById('posts-container');
-        const paginationContainer = document.getElementById('pagination-container');
-        const loginNavButton = document.getElementById('login-nav-button');
-        const adminNavButtons = document.getElementById('admin-nav-buttons');
-        const newPostNavButton = document.getElementById('new-post-nav-button');
-        const logoutNavButton = document.getElementById('logout-nav-button');
-        const loginForm = document.getElementById('login-form');
-        const newPostForm = document.getElementById('new-post-form');
-        const editPostForm = document.getElementById('edit-post-form');
-        const deletePostButton = document.getElementById('delete-post-button');
-        const loginError = document.getElementById('login-error');
-        const publishMessage = document.getElementById('publish-message');
-        const editMessage = document.getElementById('edit-message');
-
-        // --- SLIDER LOGIC ---
-        const sliderContainer = document.getElementById('slider-container');
-        const sliderDotsContainer = document.getElementById('slider-dots');
-        const slides = sliderContainer.children;
-        const slideCount = slides.length;
-        let currentIndex = 0;
-        let slideInterval;
-
-        function showSlide(index) {
-            sliderContainer.style.transform = `translateX(-${index * 100}%)`;
-            const dots = sliderDotsContainer.children;
-            for (let i = 0; i < dots.length; i++) {
-                dots[i].classList.remove('bg-white');
-                dots[i].classList.add('bg-gray-500');
-            }
-            dots[index].classList.add('bg-white');
-            dots[index].classList.remove('bg-gray-500');
-            currentIndex = index;
-        }
-
-        function startSlider() {
-            slideInterval = setInterval(() => {
-                let nextIndex = (currentIndex + 1) % slideCount;
-                showSlide(nextIndex);
-            }, 5000); // Change slide every 5 seconds
-        }
-
-        function stopSlider() {
-            clearInterval(slideInterval);
-        }
-        
-        for (let i = 0; i < slideCount; i++) {
-            const dot = document.createElement('span');
-            dot.classList.add('h-3', 'w-3', 'rounded-full', 'cursor-pointer');
-            dot.addEventListener('click', () => {
-                stopSlider();
-                showSlide(i);
-                startSlider();
-            });
-            sliderDotsContainer.appendChild(dot);
-        }
-
-        showSlide(0);
-        startSlider();
-
-        // --- AUTHENTICATION ---
-
-        onAuthStateChanged(auth, user => {
-            if (user) {
-                loginNavButton.classList.add('hidden');
-                adminNavButtons.classList.remove('hidden');
-            } else {
-                showBlogView();
-                loginNavButton.classList.remove('hidden');
-                adminNavButtons.classList.add('hidden');
-            }
-            handleRouting(); 
-        });
-
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            loginError.textContent = '';
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                window.location.hash = '#page=1';
-                showBlogView();
-            } catch (error) {
-                console.error("Login Error:", error);
-                loginError.textContent = "Failed to login. Please check your credentials.";
-            }
-        });
-
-        logoutNavButton.addEventListener('click', async () => {
-            try {
-                await signOut(auth);
-                window.location.hash = '#page=1';
-            } catch (error) {
-                console.error("Logout Error:", error);
-            }
-        });
-
-
-        // --- FIRESTORE, ROUTING & PAGINATION ---
-        let postsCache = []; 
-        const postsPerPage = 5;
-        
-        const postsCollection = collection(db, 'posts');
-        const postsQuery = query(postsCollection, orderBy('createdAt', 'desc'));
-
-        function renderPage(page) {
-            postsContainer.innerHTML = '';
-            const start = (page - 1) * postsPerPage;
-            const end = start + postsPerPage;
-            const paginatedPosts = postsCache.slice(start, end);
             
-            if(paginatedPosts.length === 0 && page === 1) {
-                 postsContainer.innerHTML = '<p class="text-center text-gray-400">No posts yet. Login to create one!</p>';
-            }
+            <!-- Edit Post View -->
+            <div id="edit-post-view" class="view hidden">
+                <div class="bg-gray-800 rounded-xl p-8">
+                    <h2 class="text-2xl font-bold text-white text-center mb-6">Edit Post</h2>
+                    <form id="edit-post-form">
+                        <input type="hidden" id="edit-post-id">
+                        <div class="mb-4">
+                            <label for="edit-post-title" class="block text-gray-200 mb-2">Title</label>
+                            <input type="text" id="edit-post-title" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="edit-post-content" class="block text-gray-200 mb-2">Content</label>
+                            <textarea id="edit-post-content" rows="6" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="edit-post-image-file" class="block text-gray-200 mb-2">Upload New Image (Optional)</label>
+                            <input type="file" id="edit-post-image-file" class="w-full text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-black hover:file:bg-white" accept="image/*">
+                        </div>
+                        <div class="mb-4">
+                            <label class="flex items-center text-gray-200">
+                                <input type="checkbox" id="delete-image-checkbox" class="h-4 w-4 text-red-600 bg-gray-700 border-gray-600 rounded focus:ring-red-500">
+                                <span class="ml-2 text-sm">Delete current image</span>
+                            </label>
+                        </div>
+                        <div class="mb-6">
+                            <label for="edit-post-author" class="block text-gray-200 mb-2">Author Name</label>
+                            <input type="text" id="edit-post-author" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button type="submit" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50">Save Changes</button>
+                            <button type="button" id="delete-post-button" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">Delete Post</button>
+                        </div>
+                    </form>
+                    <p id="edit-message" class="text-center mt-4"></p>
+                </div>
+            </div>
+        </div>
 
-            const currentUser = auth.currentUser;
-            paginatedPosts.forEach((postData, index) => {
-                const postElement = createPostElement(postData.post, postData.id, currentUser);
-                postsContainer.appendChild(postElement);
+        <!-- Footer outside the main container -->
+        <footer class="text-center my-8 text-gray-400">
+            <p>&copy; 2025 LayVision. All Rights Reserved.</p>
+        </footer>
 
-                if (index < paginatedPosts.length - 1) {
-                    const separator = document.createElement('hr');
-                    separator.className = "border-gray-700 my-12 md:my-16";
-                    postsContainer.appendChild(separator);
-                }
-            });
-            renderPagination(page);
-        }
+        <!-- Firebase SDK -->
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+            import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+            import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy, doc, getDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        function renderPagination(currentPage) {
-            paginationContainer.innerHTML = '';
-            const totalPages = Math.ceil(postsCache.length / postsPerPage);
-            if (totalPages <= 1) return;
-
-            for (let i = 1; i <= totalPages; i++) {
-                const pageLink = document.createElement('a');
-                pageLink.href = `#page=${i}`;
-                pageLink.textContent = i;
-                pageLink.className = 'px-4 py-2 rounded-lg transition-colors ';
-                if (i === currentPage) {
-                    pageLink.className += 'bg-white text-black';
-                } else {
-                    pageLink.className += 'hover:bg-gray-700';
-                }
-                paginationContainer.appendChild(pageLink);
-            }
-        }
-        
-        function handleRouting() {
-            const hash = window.location.hash;
-            const pageMatch = hash.match(/#page=(\d+)/);
-            const currentPage = pageMatch ? parseInt(pageMatch[1]) : 1;
-            renderPage(currentPage);
-        }
-
-        onSnapshot(postsQuery, (snapshot) => {
-            postsCache = snapshot.docs.map(doc => ({ id: doc.id, post: doc.data() }));
-            handleRouting();
-        }, (error) => {
-            console.error("Error fetching posts: ", error);
-            postsContainer.innerHTML = '<p class="text-center text-red-500">Could not load posts.</p>';
-        });
-
-        window.addEventListener('hashchange', handleRouting);
-
-        // --- NEW POST ---
-        newPostForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const publishButton = newPostForm.querySelector('button[type="submit"]');
-            publishButton.disabled = true;
-            publishButton.textContent = 'Publishing...';
-            const imageFile = document.getElementById('post-image-file').files[0];
-            let imageUrl = '';
-            try {
-                if (imageFile) {
-                    const formData = new FormData();
-                    formData.append('image', imageFile);
-                    const response = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
-                        method: 'POST',
-                        body: formData,
-                    });
-                    const result = await response.json();
-                    if (result.success) {
-                        imageUrl = result.data.url;
-                    } else {
-                        throw new Error('Image upload failed: ' + (result.error?.message || 'Unknown error'));
-                    }
-                } else {
-                    throw new Error('An image is required.');
-                }
-                const newPost = {
-                    title: document.getElementById('post-title').value,
-                    content: document.getElementById('post-content').value,
-                    author: document.getElementById('post-author').value,
-                    imageUrl: imageUrl,
-                    createdAt: serverTimestamp()
-                };
-                await addDoc(postsCollection, newPost);
-                publishMessage.textContent = "Post published successfully!";
-                publishMessage.className = "text-green-500 text-center mt-4";
-                newPostForm.reset();
-                setTimeout(() => {
-                    publishMessage.textContent = '';
-                    window.location.hash = '#page=1';
-                    showBlogView();
-                }, 1500);
-            } catch (error) {
-                console.error("Error publishing post: ", error);
-                publishMessage.textContent = error.message;
-                publishMessage.className = "text-red-500 text-center mt-4";
-            } finally {
-                publishButton.disabled = false;
-                publishButton.textContent = 'Publish Post';
-            }
-        });
-
-        // --- EDIT & DELETE POST ---
-        
-        postsContainer.addEventListener('click', async (e) => {
-            if (e.target.matches('.edit-post-button')) {
-                const postId = e.target.dataset.id;
-                const postRef = doc(db, 'posts', postId);
-                const postSnap = await getDoc(postRef);
-                if (postSnap.exists()) {
-                    const post = postSnap.data();
-                    document.getElementById('edit-post-id').value = postId;
-                    document.getElementById('edit-post-title').value = post.title;
-                    document.getElementById('edit-post-content').value = post.content;
-                    document.getElementById('edit-post-author').value = post.author;
-                    showEditPostView();
-                }
-            }
-        });
-
-        editPostForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const postId = document.getElementById('edit-post-id').value;
-            const postRef = doc(db, 'posts', postId);
-            const saveButton = editPostForm.querySelector('button[type="submit"]');
-            saveButton.disabled = true;
-            saveButton.textContent = 'Saving...';
-            
-            const updatedData = {
-                title: document.getElementById('edit-post-title').value,
-                content: document.getElementById('edit-post-content').value,
-                author: document.getElementById('edit-post-author').value,
+            // Your Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyAqElJCSBH1n90fIXY5sBHXfMyRP4eosnQ",
+                authDomain: "layvision-web.firebaseapp.com",
+                projectId: "layvision-web",
+                storageBucket: "layvision-web.appspot.com",
+                messagingSenderId: "545099266865",
+                appId: "1:545099266865:web:c44575b008003c03760e10"
             };
 
-            const imageFile = document.getElementById('edit-post-image-file').files[0];
-            const deleteImage = document.getElementById('delete-image-checkbox').checked;
+            // Your ImgBB API Key
+            const imgbbApiKey = "0ccae505d1ad6ab1656e50cb6e6f06cd";
 
-            try {
-                if (deleteImage) {
-                    updatedData.imageUrl = ''; // Set to empty string to delete
-                } else if (imageFile) {
-                    const formData = new FormData();
-                    formData.append('image', imageFile);
-                    const response = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, { method: 'POST', body: formData });
-                    const result = await response.json();
-                    if (result.success) {
-                        updatedData.imageUrl = result.data.url;
-                    } else {
-                        throw new Error('Image upload failed');
-                    }
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            const db = getFirestore(app);
+
+            // DOM Elements
+            const logo = document.getElementById('logo');
+            const blogView = document.getElementById('blog-view');
+            const loginView = document.getElementById('login-view');
+            const newPostView = document.getElementById('new-post-view');
+            const editPostView = document.getElementById('edit-post-view');
+            const postsContainer = document.getElementById('posts-container');
+            const paginationContainer = document.getElementById('pagination-container');
+            const loginNavButton = document.getElementById('login-nav-button');
+            const adminNavButtons = document.getElementById('admin-nav-buttons');
+            const newPostNavButton = document.getElementById('new-post-nav-button');
+            const logoutNavButton = document.getElementById('logout-nav-button');
+            const loginForm = document.getElementById('login-form');
+            const newPostForm = document.getElementById('new-post-form');
+            const editPostForm = document.getElementById('edit-post-form');
+            const deletePostButton = document.getElementById('delete-post-button');
+            const loginError = document.getElementById('login-error');
+            const publishMessage = document.getElementById('publish-message');
+            const editMessage = document.getElementById('edit-message');
+
+            // --- SLIDER LOGIC ---
+            const sliderContainer = document.getElementById('slider-container');
+            const sliderDotsContainer = document.getElementById('slider-dots');
+            const slides = sliderContainer.children;
+            const slideCount = slides.length;
+            let currentIndex = 0;
+            let slideInterval;
+
+            function showSlide(index) {
+                sliderContainer.style.transform = `translateX(-${index * 100}%)`;
+                const dots = sliderDotsContainer.children;
+                for (let i = 0; i < dots.length; i++) {
+                    dots[i].classList.remove('bg-white');
+                    dots[i].classList.add('bg-gray-500');
                 }
-
-                await updateDoc(postRef, updatedData);
-                editMessage.textContent = "Post updated successfully!";
-                editMessage.className = "text-green-500 text-center mt-4";
-                editPostForm.reset();
-                setTimeout(() => {
-                    showBlogView();
-                    editMessage.textContent = '';
-                }, 1500);
-
-            } catch (error) {
-                console.error("Error updating post: ", error);
-                editMessage.textContent = "Failed to update post.";
-                editMessage.className = "text-red-500 text-center mt-4";
-            } finally {
-                saveButton.disabled = false;
-                saveButton.textContent = 'Save Changes';
+                dots[index].classList.add('bg-white');
+                dots[index].classList.remove('bg-gray-500');
+                currentIndex = index;
             }
-        });
 
-        deletePostButton.addEventListener('click', async () => {
-            const postId = document.getElementById('edit-post-id').value;
-            if (confirm('Are you sure you want to delete this post? This cannot be undone.')) {
+            function startSlider() {
+                slideInterval = setInterval(() => {
+                    let nextIndex = (currentIndex + 1) % slideCount;
+                    showSlide(nextIndex);
+                }, 5000); // Change slide every 5 seconds
+            }
+
+            function stopSlider() {
+                clearInterval(slideInterval);
+            }
+            
+            for (let i = 0; i < slideCount; i++) {
+                const dot = document.createElement('span');
+                dot.classList.add('h-3', 'w-3', 'rounded-full', 'cursor-pointer');
+                dot.addEventListener('click', () => {
+                    stopSlider();
+                    showSlide(i);
+                    startSlider();
+                });
+                sliderDotsContainer.appendChild(dot);
+            }
+
+            showSlide(0);
+            startSlider();
+
+            // --- AUTHENTICATION ---
+
+            onAuthStateChanged(auth, user => {
+                if (user) {
+                    loginNavButton.classList.add('hidden');
+                    adminNavButtons.classList.remove('hidden');
+                } else {
+                    showBlogView();
+                    loginNavButton.classList.remove('hidden');
+                    adminNavButtons.classList.add('hidden');
+                }
+                handleRouting(); 
+            });
+
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                loginError.textContent = '';
                 try {
-                    await deleteDoc(doc(db, 'posts', postId));
+                    await signInWithEmailAndPassword(auth, email, password);
+                    window.location.hash = '#page=1';
                     showBlogView();
                 } catch (error) {
-                    console.error("Error deleting post: ", error);
-                    editMessage.textContent = "Failed to delete post.";
-                    editMessage.className = "text-red-500 text-center mt-4";
+                    console.error("Login Error:", error);
+                    loginError.textContent = "Failed to login. Please check your credentials.";
+                }
+            });
+
+            logoutNavButton.addEventListener('click', async () => {
+                try {
+                    await signOut(auth);
+                    window.location.hash = '#page=1';
+                } catch (error) {
+                    console.error("Logout Error:", error);
+                }
+            });
+
+
+            // --- FIRESTORE, ROUTING & PAGINATION ---
+            let postsCache = []; 
+            const postsPerPage = 5;
+            
+            const postsCollection = collection(db, 'posts');
+            const postsQuery = query(postsCollection, orderBy('createdAt', 'desc'));
+
+            function renderPage(page) {
+                postsContainer.innerHTML = '';
+                const start = (page - 1) * postsPerPage;
+                const end = start + postsPerPage;
+                const paginatedPosts = postsCache.slice(start, end);
+                
+                if(paginatedPosts.length === 0 && page === 1) {
+                    postsContainer.innerHTML = '<p class="text-center text-gray-400">No posts yet. Login to create one!</p>';
+                }
+
+                const currentUser = auth.currentUser;
+                paginatedPosts.forEach((postData, index) => {
+                    const postElement = createPostElement(postData.post, postData.id, currentUser);
+                    postsContainer.appendChild(postElement);
+
+                    if (index < paginatedPosts.length - 1) {
+                        const separator = document.createElement('hr');
+                        separator.className = "border-gray-700 my-12 md:my-16";
+                        postsContainer.appendChild(separator);
+                    }
+                });
+                renderPagination(page);
+            }
+
+            function renderPagination(currentPage) {
+                paginationContainer.innerHTML = '';
+                const totalPages = Math.ceil(postsCache.length / postsPerPage);
+                if (totalPages <= 1) return;
+
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageLink = document.createElement('a');
+                    pageLink.href = `#page=${i}`;
+                    pageLink.textContent = i;
+                    pageLink.className = 'px-4 py-2 rounded-lg transition-colors ';
+                    if (i === currentPage) {
+                        pageLink.className += 'bg-white text-black';
+                    } else {
+                        pageLink.className += 'hover:bg-gray-700';
+                    }
+                    paginationContainer.appendChild(pageLink);
                 }
             }
-        });
-
-        // Helper function to create a post HTML element
-        function createPostElement(post, postId, user) {
-            const article = document.createElement('article');
-            article.className = 'w-full';
             
-            const formattedDate = post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Just now';
+            function handleRouting() {
+                const hash = window.location.hash;
+                const pageMatch = hash.match(/#page=(\d+)/);
+                const currentPage = pageMatch ? parseInt(pageMatch[1]) : 1;
+                renderPage(currentPage);
+            }
 
-            const sanitizedContent = post.content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-            const formattedContent = sanitizedContent.split('\n').map(p => `<p>${p}</p>`).join('');
+            onSnapshot(postsQuery, (snapshot) => {
+                postsCache = snapshot.docs.map(doc => ({ id: doc.id, post: doc.data() }));
+                handleRouting();
+            }, (error) => {
+                console.error("Error fetching posts: ", error);
+                postsContainer.innerHTML = '<p class="text-center text-red-500">Could not load posts.</p>';
+            });
 
-            const editButtonHtml = user ? `<button data-id="${postId}" class="edit-post-button text-sm text-gray-200 hover:text-white transition-colors ml-4">&middot; Edit</button>` : '';
+            window.addEventListener('hashchange', handleRouting);
 
-            const imageHtml = post.imageUrl ? `<img class="w-full h-auto rounded-xl mb-6 shadow-lg" src="${post.imageUrl}" alt="${post.title}" onerror="this.onerror=null;this.src='https://placehold.co/800x400/1a202c/ffffff?text=Image+Not+Found';">` : '';
-
-            article.innerHTML = `
-                ${imageHtml}
-                
-                <div class="px-1">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: #ff0066;">${post.title}</h2>
+            // --- NEW POST ---
+            newPostForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const publishButton = newPostForm.querySelector('button[type="submit"]');
+                publishButton.disabled = true;
+                publishButton.textContent = 'Publishing...';
+                const imageFile = document.getElementById('post-image-file').files[0];
+                let imageUrl = '';
+                try {
+                    if (imageFile) {
+                        const formData = new FormData();
+                        formData.append('image', imageFile);
+                        const response = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
+                            method: 'POST',
+                            body: formData,
+                        });
+                        const result = await response.json();
+                        if (result.success) {
+                            imageUrl = result.data.url;
+                        } else {
+                            throw new Error('Image upload failed: ' + (result.error?.message || 'Unknown error'));
+                        }
+                    }
                     
-                    <div class="flex items-center mb-6 text-gray-200">
-                        <img class="w-10 h-10 rounded-full mr-4" src="https://placehold.co/40x40/4a5568/ffffff?text=${post.author.charAt(0)}" alt="Author Avatar">
-                        <span>By <span class="font-semibold text-white">${post.author}</span> &middot; ${formattedDate}</span>
-                        ${editButtonHtml}
+                    const newPost = {
+                        title: document.getElementById('post-title').value,
+                        content: document.getElementById('post-content').value,
+                        author: document.getElementById('post-author').value,
+                        imageUrl: imageUrl,
+                        createdAt: serverTimestamp()
+                    };
+                    await addDoc(postsCollection, newPost);
+                    publishMessage.textContent = "Post published successfully!";
+                    publishMessage.className = "text-green-500 text-center mt-4";
+                    newPostForm.reset();
+                    setTimeout(() => {
+                        publishMessage.textContent = '';
+                        window.location.hash = '#page=1';
+                        showBlogView();
+                    }, 1500);
+                } catch (error) {
+                    console.error("Error publishing post: ", error);
+                    publishMessage.textContent = error.message;
+                    publishMessage.className = "text-red-500 text-center mt-4";
+                } finally {
+                    publishButton.disabled = false;
+                    publishButton.textContent = 'Publish Post';
+                }
+            });
+
+            // --- EDIT & DELETE POST ---
+            
+            postsContainer.addEventListener('click', async (e) => {
+                if (e.target.matches('.edit-post-button')) {
+                    const postId = e.target.dataset.id;
+                    const postRef = doc(db, 'posts', postId);
+                    const postSnap = await getDoc(postRef);
+                    if (postSnap.exists()) {
+                        const post = postSnap.data();
+                        document.getElementById('edit-post-id').value = postId;
+                        document.getElementById('edit-post-title').value = post.title;
+                        document.getElementById('edit-post-content').value = post.content;
+                        document.getElementById('edit-post-author').value = post.author;
+                        showEditPostView();
+                    }
+                }
+            });
+
+            editPostForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const postId = document.getElementById('edit-post-id').value;
+                const postRef = doc(db, 'posts', postId);
+                const saveButton = editPostForm.querySelector('button[type="submit"]');
+                saveButton.disabled = true;
+                saveButton.textContent = 'Saving...';
+                
+                const updatedData = {
+                    title: document.getElementById('edit-post-title').value,
+                    content: document.getElementById('edit-post-content').value,
+                    author: document.getElementById('edit-post-author').value,
+                };
+
+                const imageFile = document.getElementById('edit-post-image-file').files[0];
+                const deleteImage = document.getElementById('delete-image-checkbox').checked;
+
+                try {
+                    if (deleteImage) {
+                        updatedData.imageUrl = ''; // Set to empty string to delete
+                    } else if (imageFile) {
+                        const formData = new FormData();
+                        formData.append('image', imageFile);
+                        const response = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, { method: 'POST', body: formData });
+                        const result = await response.json();
+                        if (result.success) {
+                            updatedData.imageUrl = result.data.url;
+                        } else {
+                            throw new Error('Image upload failed');
+                        }
+                    }
+
+                    await updateDoc(postRef, updatedData);
+                    editMessage.textContent = "Post updated successfully!";
+                    editMessage.className = "text-green-500 text-center mt-4";
+                    editPostForm.reset();
+                    setTimeout(() => {
+                        showBlogView();
+                        editMessage.textContent = '';
+                    }, 1500);
+
+                } catch (error) {
+                    console.error("Error updating post: ", error);
+                    editMessage.textContent = "Failed to update post.";
+                    editMessage.className = "text-red-500 text-center mt-4";
+                } finally {
+                    saveButton.disabled = false;
+                    saveButton.textContent = 'Save Changes';
+                }
+            });
+
+            deletePostButton.addEventListener('click', async () => {
+                const postId = document.getElementById('edit-post-id').value;
+                if (confirm('Are you sure you want to delete this post? This cannot be undone.')) {
+                    try {
+                        await deleteDoc(doc(db, 'posts', postId));
+                        showBlogView();
+                    } catch (error) {
+                        console.error("Error deleting post: ", error);
+                        editMessage.textContent = "Failed to delete post.";
+                        editMessage.className = "text-red-500 text-center mt-4";
+                    }
+                }
+            });
+
+            // Helper function to create a post HTML element
+            function createPostElement(post, postId, user) {
+                const article = document.createElement('article');
+                article.className = 'w-full';
+                
+                const formattedDate = post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Just now';
+
+                const sanitizedContent = post.content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                const formattedContent = sanitizedContent.split('\n').map(p => `<p>${p}</p>`).join('');
+
+                const editButtonHtml = user ? `<button data-id="${postId}" class="edit-post-button text-sm text-gray-200 hover:text-white transition-colors ml-4">&middot; Edit</button>` : '';
+
+                const imageHtml = post.imageUrl ? `<img class="w-full h-auto rounded-xl mb-6 shadow-lg" src="${post.imageUrl}" alt="${post.title}" onerror="this.onerror=null;this.src='https://placehold.co/800x400/1a202c/ffffff?text=Image+Not+Found';">` : '';
+
+                article.innerHTML = `
+                    ${imageHtml}
+                    
+                    <div class="px-1">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: #ff0066;">${post.title}</h2>
+                        
+                        <div class="flex items-center mb-6 text-gray-200">
+                            <img class="w-10 h-10 rounded-full mr-4" src="https://placehold.co/40x40/4a5568/ffffff?text=${post.author.charAt(0)}" alt="Author Avatar">
+                            <span>By <span class="font-semibold text-white">${post.author}</span> &middot; ${formattedDate}</span>
+                            ${editButtonHtml}
+                        </div>
+
+                        <div class="text-white text-lg leading-relaxed space-y-4">
+                            ${formattedContent}
+                        </div>
                     </div>
+                `;
+                return article;
+            }
 
-                    <div class="text-white text-lg leading-relaxed space-y-4">
-                        ${formattedContent}
-                    </div>
-                </div>
-            `;
-            return article;
-        }
+            // --- VIEW SWITCHING ---
+            function showBlogView() {
+                blogView.classList.remove('hidden');
+                loginView.classList.add('hidden');
+                newPostView.classList.add('hidden');
+                editPostView.classList.add('hidden');
+            }
 
-        // --- VIEW SWITCHING ---
-        function showBlogView() {
-            blogView.classList.remove('hidden');
-            loginView.classList.add('hidden');
-            newPostView.classList.add('hidden');
-            editPostView.classList.add('hidden');
-        }
+            function showLoginView() {
+                blogView.classList.add('hidden');
+                loginView.classList.remove('hidden');
+                newPostView.classList.add('hidden');
+                editPostView.classList.add('hidden');
+            }
 
-        function showLoginView() {
-            blogView.classList.add('hidden');
-            loginView.classList.remove('hidden');
-            newPostView.classList.add('hidden');
-            editPostView.classList.add('hidden');
-        }
+            function showNewPostView() {
+                blogView.classList.add('hidden');
+                loginView.classList.add('hidden');
+                newPostView.classList.remove('hidden');
+                editPostView.classList.add('hidden');
+            }
 
-        function showNewPostView() {
-            blogView.classList.add('hidden');
-            loginView.classList.add('hidden');
-            newPostView.classList.remove('hidden');
-            editPostView.classList.add('hidden');
-        }
+            function showEditPostView() {
+                blogView.classList.add('hidden');
+                loginView.classList.add('hidden');
+                newPostView.classList.add('hidden');
+                editPostView.classList.remove('hidden');
+            }
+            
+            loginNavButton.addEventListener('click', showLoginView);
+            newPostNavButton.addEventListener('click', showNewPostView);
+            logo.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.hash = '#page=1';
+                showBlogView();
+            });
 
-        function showEditPostView() {
-            blogView.classList.add('hidden');
-            loginView.classList.add('hidden');
-            newPostView.classList.add('hidden');
-            editPostView.classList.remove('hidden');
-        }
-        
-        loginNavButton.addEventListener('click', showLoginView);
-        newPostNavButton.addEventListener('click', showNewPostView);
-        logo.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.location.hash = '#page=1';
-            showBlogView();
-        });
-
-    </script>
-</body>
-</html>
+        </script>
+    </body>
+    </html>
