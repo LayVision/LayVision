@@ -24,7 +24,7 @@
         }
     </style>
 </head>
-<body class="bg-black text-gray-200 antialiased">
+<body class="bg-black text-white antialiased">
 
     <!-- Main centered container -->
     <div class="container mx-auto max-w-3xl bg-gray-900 rounded-xl shadow-lg mt-8 md:mt-12 p-6 md:p-8">
@@ -33,9 +33,11 @@
         <header class="flex justify-between items-center mb-8 md:mb-12">
             <a href="#" id="logo" class="text-2xl font-bold text-white hover:text-gray-300 transition-colors">The Midnight Post</a>
             <nav>
-                <!-- Login/Logout buttons will be controlled by JavaScript -->
-                <button id="login-nav-button" class="text-indigo-400 hover:text-indigo-300">Admin Login</button>
-                <button id="logout-nav-button" class="hidden text-pink-400 hover:text-pink-300">Logout</button>
+                <button id="login-nav-button" class="text-gray-300 hover:text-white">Admin Login</button>
+                <div id="admin-nav-buttons" class="hidden">
+                    <button id="new-post-nav-button" class="text-gray-300 hover:text-white mr-4">New Post</button>
+                    <button id="logout-nav-button" class="text-gray-300 hover:text-white">Logout</button>
+                </div>
             </nav>
         </header>
 
@@ -54,13 +56,13 @@
                 <form id="login-form">
                     <div class="mb-4">
                         <label for="email" class="block text-gray-400 mb-2">Email</label>
-                        <input type="email" id="email" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                        <input type="email" id="email" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white" required>
                     </div>
                     <div class="mb-6">
                         <label for="password" class="block text-gray-400 mb-2">Password</label>
-                        <input type="password" id="password" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                        <input type="password" id="password" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white" required>
                     </div>
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">Login</button>
+                    <button type="submit" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded-lg transition-colors">Login</button>
                 </form>
                 <p id="login-error" class="text-red-500 text-center mt-4"></p>
             </div>
@@ -76,22 +78,18 @@
                         <input type="text" id="post-title" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
                     </div>
                     <div class="mb-4">
-                        <label for="post-category" class="block text-gray-400 mb-2">Category</label>
-                        <input type="text" id="post-category" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" placeholder="e.g., TECHNOLOGY" required>
-                    </div>
-                    <div class="mb-4">
                         <label for="post-content" class="block text-gray-400 mb-2">Content</label>
                         <textarea id="post-content" rows="6" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required></textarea>
                     </div>
                     <div class="mb-4">
                         <label for="post-image-file" class="block text-gray-400 mb-2">Image</label>
-                        <input type="file" id="post-image-file" class="w-full text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100" accept="image/*" required>
+                        <input type="file" id="post-image-file" class="w-full text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-black hover:file:bg-white" accept="image/*" required>
                     </div>
                      <div class="mb-6">
                         <label for="post-author" class="block text-gray-400 mb-2">Author Name</label>
                         <input type="text" id="post-author" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
                     </div>
-                    <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50">Publish Post</button>
+                    <button type="submit" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50">Publish Post</button>
                 </form>
                  <p id="publish-message" class="text-center mt-4"></p>
             </div>
@@ -135,6 +133,8 @@
         const adminView = document.getElementById('admin-view');
         const postsContainer = document.getElementById('posts-container');
         const loginNavButton = document.getElementById('login-nav-button');
+        const adminNavButtons = document.getElementById('admin-nav-buttons');
+        const newPostNavButton = document.getElementById('new-post-nav-button');
         const logoutNavButton = document.getElementById('logout-nav-button');
         const loginForm = document.getElementById('login-form');
         const newPostForm = document.getElementById('new-post-form');
@@ -145,14 +145,14 @@
 
         onAuthStateChanged(auth, user => {
             if (user) {
-                // If user is logged in, always show admin button, ready for admin view
+                // User is logged in
                 loginNavButton.classList.add('hidden');
-                logoutNavButton.classList.remove('hidden');
+                adminNavButtons.classList.remove('hidden');
             } else {
-                // User is signed out, show the blog view by default
+                // User is signed out
                 showBlogView();
                 loginNavButton.classList.remove('hidden');
-                logoutNavButton.classList.add('hidden');
+                adminNavButtons.classList.add('hidden');
             }
         });
 
@@ -163,7 +163,6 @@
             loginError.textContent = '';
             try {
                 await signInWithEmailAndPassword(auth, email, password);
-                // Auth state listener will show logout button, then we show admin view
                 showAdminView();
             } catch (error) {
                 console.error("Login Error:", error);
@@ -174,7 +173,6 @@
         logoutNavButton.addEventListener('click', async () => {
             try {
                 await signOut(auth);
-                // Auth state listener will handle showing the blog view
             } catch (error) {
                 console.error("Logout Error:", error);
             }
@@ -235,7 +233,6 @@
                 }
                 const newPost = {
                     title: document.getElementById('post-title').value,
-                    category: document.getElementById('post-category').value,
                     content: document.getElementById('post-content').value,
                     author: document.getElementById('post-author').value,
                     imageUrl: imageUrl,
@@ -263,12 +260,6 @@
             article.className = 'w-full';
             
             const formattedDate = post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Just now';
-            const categoryColors = {
-                'TECHNOLOGY': 'text-indigo-400',
-                'TRAVEL': 'text-teal-400',
-                'LIFESTYLE': 'text-pink-400',
-            };
-            const categoryColor = categoryColors[post.category.toUpperCase()] || 'text-gray-400';
 
             const sanitizedContent = post.content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             const formattedContent = sanitizedContent.split('\n').map(p => `<p>${p}</p>`).join('');
@@ -277,12 +268,11 @@
                 <img class="w-full h-auto rounded-xl mb-6 shadow-lg" src="${post.imageUrl}" alt="${post.title}" onerror="this.onerror=null;this.src='https://placehold.co/800x400/1a202c/ffffff?text=Image+Not+Found';">
                 
                 <div class="px-1">
-                    <p class="text-sm ${categoryColor} font-semibold mb-2">${post.category.toUpperCase()}</p>
                     <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">${post.title}</h2>
                     
                     <div class="flex items-center mb-6 text-gray-400">
                         <img class="w-10 h-10 rounded-full mr-4" src="https://placehold.co/40x40/4a5568/ffffff?text=${post.author.charAt(0)}" alt="Author Avatar">
-                        <span>By <span class="font-semibold text-gray-200">${post.author}</span> &middot; ${formattedDate}</span>
+                        <span>By <span class="font-semibold text-white">${post.author}</span> &middot; ${formattedDate}</span>
                     </div>
 
                     <div class="text-gray-300 text-lg leading-relaxed space-y-4">
@@ -313,6 +303,7 @@
         }
         
         loginNavButton.addEventListener('click', showLoginView);
+        newPostNavButton.addEventListener('click', showAdminView);
         logo.addEventListener('click', (e) => {
             e.preventDefault();
             showBlogView();
