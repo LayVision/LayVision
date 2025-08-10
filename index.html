@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,61 +10,119 @@
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         /* Use the Inter font family */
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            /* Fallback for older browsers */
+            background-image: radial-gradient(circle at 1px 1px, #2d2d2d 1px, transparent 0);
+            background-size: 2rem 2rem;
         }
-        /* Simple transition for view switching */
+
+        /* Glassmorphism effect for the header */
+        .glass-header {
+            background: rgba(18, 18, 18, 0.6);
+            /* Semi-transparent background */
+            -webkit-backdrop-filter: blur(10px);
+            /* Frosted glass effect for Safari */
+            backdrop-filter: blur(10px);
+            /* Frosted glass effect */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* General view transition */
         .view {
-            transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
         }
+
         .hidden {
             display: none;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        /* Post fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .post-article {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* Custom button style */
+        .btn-primary {
+            background-image: linear-gradient(to right, #ffffff, #e2e8f0);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 rgba(255, 255, 255, 0.15);
         }
     </style>
 </head>
-<body class="bg-black text-white antialiased">
+
+<body class="text-white antialiased">
 
     <!-- Main centered container -->
-    <div class="container mx-auto max-w-3xl p-6 md:p-8" style="background-color: #111111;">
+    <div class="container mx-auto max-w-3xl p-4 md:p-6">
 
         <!-- Header Section -->
-        <header class="flex justify-between items-center mb-8 md:mb-12">
-            <a href="#" id="logo" class="text-2xl font-bold hover:opacity-80 transition-opacity" style="color: #ffffff;">LayVision</a>
+        <header class="glass-header sticky top-4 z-50 flex justify-between items-center mb-8 md:mb-12 p-4 rounded-xl">
+            <a href="#" id="logo" class="text-2xl font-extrabold hover:opacity-80 transition-opacity">LayVision</a>
             <nav>
-                <button id="login-nav-button" class="text-white hover:text-gray-300">Login</button>
+                <button id="login-nav-button"
+                    class="font-semibold py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors">Login</button>
                 <div id="admin-nav-buttons" class="hidden">
-                    <button id="new-post-nav-button" class="text-white hover:text-gray-300 mr-4">New Post</button>
-                    <button id="logout-nav-button" class="text-white hover:text-gray-300">Logout</button>
+                    <button id="new-post-nav-button"
+                        class="font-semibold py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors mr-2">New
+                        Post</button>
+                    <button id="logout-nav-button"
+                        class="font-semibold py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors">Logout</button>
                 </div>
             </nav>
         </header>
 
         <!-- Blog View -->
         <div id="blog-view" class="view">
-            <main id="posts-container">
+            <main id="posts-container" class="space-y-12 md:space-y-16">
                 <!-- Blog posts will be loaded here by JavaScript -->
                 <p class="text-center text-gray-400">Loading posts...</p>
             </main>
-            <div id="pagination-container" class="flex justify-center items-center space-x-2 mt-8 md:mt-12"></div>
+            <div id="pagination-container" class="flex justify-center items-center space-x-2 mt-12 md:mt-16"></div>
         </div>
 
         <!-- Login View -->
         <div id="login-view" class="view hidden">
-            <div class="bg-gray-800 rounded-xl p-8">
-                <h2 class="text-2xl font-bold text-white text-center mb-6">Admin Login</h2>
+            <div class="bg-[#111111] border border-gray-800 rounded-xl p-8 shadow-2xl shadow-black">
+                <h2 class="text-3xl font-bold text-white text-center mb-6">Admin Login</h2>
                 <form id="login-form">
                     <div class="mb-4">
-                        <label for="email" class="block text-gray-200 mb-2">Email</label>
-                        <input type="email" id="email" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white" required>
+                        <label for="email" class="block text-gray-300 mb-2">Email</label>
+                        <input type="email" id="email"
+                            class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition-shadow"
+                            required>
                     </div>
                     <div class="mb-6">
-                        <label for="password" class="block text-gray-200 mb-2">Password</label>
-                        <input type="password" id="password" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white" required>
+                        <label for="password" class="block text-gray-300 mb-2">Password</label>
+                        <input type="password" id="password"
+                            class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition-shadow"
+                            required>
                     </div>
-                    <button type="submit" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded-lg transition-colors">Login</button>
+                    <button type="submit"
+                        class="w-full btn-primary text-black font-bold py-3 px-4 rounded-lg">Login</button>
                 </form>
                 <p id="login-error" class="text-red-500 text-center mt-4"></p>
             </div>
@@ -71,71 +130,91 @@
 
         <!-- New Post View -->
         <div id="new-post-view" class="view hidden">
-             <div class="bg-gray-800 rounded-xl p-8">
-                <h2 class="text-2xl font-bold text-white text-center mb-6">Create New Post</h2>
+            <div class="bg-[#111111] border border-gray-800 rounded-xl p-8 shadow-2xl shadow-black">
+                <h2 class="text-3xl font-bold text-white text-center mb-6">Create New Post</h2>
                 <form id="new-post-form">
                     <div class="mb-4">
-                        <label for="post-title" class="block text-gray-200 mb-2">Title</label>
-                        <input type="text" id="post-title" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
+                        <label for="post-title" class="block text-gray-300 mb-2">Title</label>
+                        <input type="text" id="post-title"
+                            class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white" required>
                     </div>
                     <div class="mb-4">
-                        <label for="post-content" class="block text-gray-200 mb-2">Content</label>
-                        <textarea id="post-content" rows="6" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required></textarea>
+                        <label for="post-content" class="block text-gray-300 mb-2">Content</label>
+                        <textarea id="post-content" rows="6"
+                            class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white"
+                            required></textarea>
                     </div>
                     <div class="mb-4">
-                        <label for="post-image-file" class="block text-gray-200 mb-2">Image (Optional)</label>
-                        <input type="file" id="post-image-file" class="w-full text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-black hover:file:bg-white" accept="image/*">
+                        <label for="post-image-file" class="block text-gray-300 mb-2">Image (Optional)</label>
+                        <input type="file" id="post-image-file"
+                            class="w-full text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-black hover:file:bg-white"
+                            accept="image/*">
                     </div>
-                     <div class="mb-6">
-                        <label for="post-author" class="block text-gray-200 mb-2">Author Name</label>
-                        <input type="text" id="post-author" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
+                    <div class="mb-6">
+                        <label for="post-author" class="block text-gray-300 mb-2">Author Name</label>
+                        <input type="text" id="post-author"
+                            class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white" required>
                     </div>
-                    <button type="submit" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50">Publish Post</button>
+                    <button type="submit"
+                        class="w-full btn-primary text-black font-bold py-3 px-4 rounded-lg disabled:opacity-50">Publish
+                        Post</button>
                 </form>
-                 <p id="publish-message" class="text-center mt-4"></p>
+                <p id="publish-message" class="text-center mt-4"></p>
             </div>
         </div>
-        
+
         <!-- Edit Post View -->
         <div id="edit-post-view" class="view hidden">
-             <div class="bg-gray-800 rounded-xl p-8">
-                <h2 class="text-2xl font-bold text-white text-center mb-6">Edit Post</h2>
+            <div class="bg-[#111111] border border-gray-800 rounded-xl p-8 shadow-2xl shadow-black">
+                <h2 class="text-3xl font-bold text-white text-center mb-6">Edit Post</h2>
                 <form id="edit-post-form">
                     <input type="hidden" id="edit-post-id">
                     <div class="mb-4">
-                        <label for="edit-post-title" class="block text-gray-200 mb-2">Title</label>
-                        <input type="text" id="edit-post-title" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
+                        <label for="edit-post-title" class="block text-gray-300 mb-2">Title</label>
+                        <input type="text" id="edit-post-title"
+                            class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white" required>
                     </div>
                     <div class="mb-4">
-                        <label for="edit-post-content" class="block text-gray-200 mb-2">Content</label>
-                        <textarea id="edit-post-content" rows="6" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required></textarea>
+                        <label for="edit-post-content" class="block text-gray-300 mb-2">Content</label>
+                        <textarea id="edit-post-content" rows="6"
+                            class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white"
+                            required></textarea>
                     </div>
                     <div class="mb-4">
-                        <label for="edit-post-image-file" class="block text-gray-200 mb-2">Upload New Image (Optional)</label>
-                        <input type="file" id="edit-post-image-file" class="w-full text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-black hover:file:bg-white" accept="image/*">
+                        <label for="edit-post-image-file" class="block text-gray-300 mb-2">Upload New Image
+                            (Optional)</label>
+                        <input type="file" id="edit-post-image-file"
+                            class="w-full text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-black hover:file:bg-white"
+                            accept="image/*">
                     </div>
                     <div class="mb-4">
-                        <label class="flex items-center text-gray-200">
-                            <input type="checkbox" id="delete-image-checkbox" class="h-4 w-4 text-red-600 bg-gray-700 border-gray-600 rounded focus:ring-red-500">
+                        <label class="flex items-center text-gray-300">
+                            <input type="checkbox" id="delete-image-checkbox"
+                                class="h-4 w-4 text-red-600 bg-gray-700 border-gray-600 rounded focus:ring-red-500">
                             <span class="ml-2 text-sm">Delete current image</span>
                         </label>
                     </div>
-                     <div class="mb-6">
-                        <label for="edit-post-author" class="block text-gray-200 mb-2">Author Name</label>
-                        <input type="text" id="edit-post-author" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white" required>
+                    <div class="mb-6">
+                        <label for="edit-post-author" class="block text-gray-300 mb-2">Author Name</label>
+                        <input type="text" id="edit-post-author"
+                            class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white" required>
                     </div>
                     <div class="flex space-x-4">
-                        <button type="submit" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50">Save Changes</button>
-                        <button type="button" id="delete-post-button" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">Delete Post</button>
+                        <button type="submit"
+                            class="w-full btn-primary text-black font-bold py-3 px-4 rounded-lg disabled:opacity-50">Save
+                            Changes</button>
+                        <button type="button" id="delete-post-button"
+                            class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">Delete
+                            Post</button>
                     </div>
                 </form>
-                 <p id="edit-message" class="text-center mt-4"></p>
+                <p id="edit-message" class="text-center mt-4"></p>
             </div>
         </div>
     </div>
 
     <!-- Footer outside the main container -->
-    <footer class="text-center my-8 text-gray-400">
+    <footer class="text-center my-8 text-gray-500">
         <p>&copy; 2025 LayVision. All Rights Reserved.</p>
     </footer>
 
@@ -191,11 +270,11 @@
                 loginNavButton.classList.add('hidden');
                 adminNavButtons.classList.remove('hidden');
             } else {
-                showBlogView();
+                showView(blogView);
                 loginNavButton.classList.remove('hidden');
                 adminNavButtons.classList.add('hidden');
             }
-            handleRouting(); 
+            handleRouting();
         });
 
         loginForm.addEventListener('submit', async (e) => {
@@ -206,7 +285,7 @@
             try {
                 await signInWithEmailAndPassword(auth, email, password);
                 window.location.hash = '#page=1';
-                showBlogView();
+                showView(blogView);
             } catch (error) {
                 console.error("Login Error:", error);
                 loginError.textContent = "Failed to login. Please check your credentials.";
@@ -224,9 +303,9 @@
 
 
         // --- FIRESTORE, ROUTING & PAGINATION ---
-        let postsCache = []; 
+        let postsCache = [];
         const postsPerPage = 5;
-        
+
         const postsCollection = collection(db, 'posts');
         const postsQuery = query(postsCollection, orderBy('createdAt', 'desc'));
 
@@ -235,21 +314,15 @@
             const start = (page - 1) * postsPerPage;
             const end = start + postsPerPage;
             const paginatedPosts = postsCache.slice(start, end);
-            
-            if(paginatedPosts.length === 0 && page === 1) {
-                 postsContainer.innerHTML = '<p class="text-center text-gray-400">No posts yet. Login to create one!</p>';
+
+            if (paginatedPosts.length === 0 && page === 1) {
+                postsContainer.innerHTML = '<p class="text-center text-gray-400">No posts yet. Login to create one!</p>';
             }
 
             const currentUser = auth.currentUser;
-            paginatedPosts.forEach((postData, index) => {
+            paginatedPosts.forEach((postData) => {
                 const postElement = createPostElement(postData.post, postData.id, currentUser);
                 postsContainer.appendChild(postElement);
-
-                if (index < paginatedPosts.length - 1) {
-                    const separator = document.createElement('hr');
-                    separator.className = "border-gray-700 my-12 md:my-16";
-                    postsContainer.appendChild(separator);
-                }
             });
             renderPagination(page);
         }
@@ -263,16 +336,16 @@
                 const pageLink = document.createElement('a');
                 pageLink.href = `#page=${i}`;
                 pageLink.textContent = i;
-                pageLink.className = 'px-4 py-2 rounded-lg transition-colors ';
+                pageLink.className = 'px-4 py-2 rounded-lg transition-colors font-semibold ';
                 if (i === currentPage) {
                     pageLink.className += 'bg-white text-black';
                 } else {
-                    pageLink.className += 'hover:bg-gray-700';
+                    pageLink.className += 'hover:bg-gray-800';
                 }
                 paginationContainer.appendChild(pageLink);
             }
         }
-        
+
         function handleRouting() {
             const hash = window.location.hash;
             const pageMatch = hash.match(/#page=(\d+)/);
@@ -293,6 +366,7 @@
         // --- NEW POST ---
         newPostForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            // (Functionality unchanged, but it will now appear in the new styled modal)
             const publishButton = newPostForm.querySelector('button[type="submit"]');
             publishButton.disabled = true;
             publishButton.textContent = 'Publishing...';
@@ -313,7 +387,7 @@
                         throw new Error('Image upload failed: ' + (result.error?.message || 'Unknown error'));
                     }
                 }
-                
+
                 const newPost = {
                     title: document.getElementById('post-title').value,
                     content: document.getElementById('post-content').value,
@@ -328,7 +402,7 @@
                 setTimeout(() => {
                     publishMessage.textContent = '';
                     window.location.hash = '#page=1';
-                    showBlogView();
+                    showView(blogView);
                 }, 1500);
             } catch (error) {
                 console.error("Error publishing post: ", error);
@@ -341,10 +415,11 @@
         });
 
         // --- EDIT & DELETE POST ---
-        
+
         postsContainer.addEventListener('click', async (e) => {
-            if (e.target.matches('.edit-post-button')) {
-                const postId = e.target.dataset.id;
+            const editButton = e.target.closest('.edit-post-button');
+            if (editButton) {
+                const postId = editButton.dataset.id;
                 const postRef = doc(db, 'posts', postId);
                 const postSnap = await getDoc(postRef);
                 if (postSnap.exists()) {
@@ -353,19 +428,20 @@
                     document.getElementById('edit-post-title').value = post.title;
                     document.getElementById('edit-post-content').value = post.content;
                     document.getElementById('edit-post-author').value = post.author;
-                    showEditPostView();
+                    showView(editPostView);
                 }
             }
         });
 
         editPostForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            // (Functionality unchanged)
             const postId = document.getElementById('edit-post-id').value;
             const postRef = doc(db, 'posts', postId);
             const saveButton = editPostForm.querySelector('button[type="submit"]');
             saveButton.disabled = true;
             saveButton.textContent = 'Saving...';
-            
+
             const updatedData = {
                 title: document.getElementById('edit-post-title').value,
                 content: document.getElementById('edit-post-content').value,
@@ -395,7 +471,7 @@
                 editMessage.className = "text-green-500 text-center mt-4";
                 editPostForm.reset();
                 setTimeout(() => {
-                    showBlogView();
+                    showView(blogView);
                     editMessage.textContent = '';
                 }, 1500);
 
@@ -414,7 +490,7 @@
             if (confirm('Are you sure you want to delete this post? This cannot be undone.')) {
                 try {
                     await deleteDoc(doc(db, 'posts', postId));
-                    showBlogView();
+                    showView(blogView);
                 } catch (error) {
                     console.error("Error deleting post: ", error);
                     editMessage.textContent = "Failed to delete post.";
@@ -423,33 +499,31 @@
             }
         });
 
-        // Helper function to create a post HTML element
+        // **MODIFIED** Helper function to create a post HTML element
         function createPostElement(post, postId, user) {
             const article = document.createElement('article');
-            article.className = 'w-full';
-            
-            const formattedDate = post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Just now';
+            // Added classes for card styling, transition, and animation
+            article.className = 'post-article bg-[#111111] border border-gray-800 rounded-xl p-6 md:p-8 transition-all duration-300 hover:shadow-2xl hover:shadow-black hover:-translate-y-1';
+
+            const formattedDate = post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'Just now';
 
             const sanitizedContent = post.content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-            const formattedContent = sanitizedContent.split('\n').map(p => `<p>${p}</p>`).join('');
+            const formattedContent = sanitizedContent.split('\n').filter(p => p.trim() !== '').map(p => `<p>${p}</p>`).join('');
 
-            const editButtonHtml = user ? `<button data-id="${postId}" class="edit-post-button text-sm text-gray-200 hover:text-white transition-colors ml-4">&middot; Edit</button>` : '';
+            const editButtonHtml = user ? `<button data-id="${postId}" class="edit-post-button text-sm text-gray-400 hover:text-white transition-colors ml-4">&middot; Edit</button>` : '';
 
-            const imageHtml = post.imageUrl ? `<img class="w-full h-auto rounded-xl mb-6 shadow-lg" src="${post.imageUrl}" alt="${post.title}" onerror="this.onerror=null;this.src='https://placehold.co/800x400/1a202c/ffffff?text=Image+Not+Found';">` : '';
+            const imageHtml = post.imageUrl ? `<img class="w-full h-auto rounded-lg mb-6 shadow-lg" src="${post.imageUrl}" alt="${post.title}" onerror="this.onerror=null;this.style.display='none';">` : '';
 
             article.innerHTML = `
                 ${imageHtml}
-                
                 <div class="px-1">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">${post.title}</h2>
-                    
-                    <div class="flex items-center mb-6 text-gray-200">
-                        <img class="w-10 h-10 rounded-full mr-4" src="https://placehold.co/40x40/4a5568/ffffff?text=${post.author.charAt(0)}" alt="Author Avatar">
-                        <span>By <span class="font-semibold text-white">${post.author}</span> &middot; ${formattedDate}</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-100">${post.title}</h2>
+                    <div class="flex items-center mb-6 text-gray-400">
+                        <img class="w-10 h-10 rounded-full mr-4 border-2 border-gray-700" src="https://i.pravatar.cc/40?u=${post.author}" alt="Author Avatar">
+                        <span>By <span class="font-semibold text-gray-200">${post.author}</span> &middot; ${formattedDate}</span>
                         ${editButtonHtml}
                     </div>
-
-                    <div class="text-white text-lg leading-relaxed space-y-4">
+                    <div class="text-gray-300 text-lg leading-relaxed space-y-4">
                         ${formattedContent}
                     </div>
                 </div>
@@ -457,43 +531,34 @@
             return article;
         }
 
+
         // --- VIEW SWITCHING ---
-        function showBlogView() {
-            blogView.classList.remove('hidden');
-            loginView.classList.add('hidden');
-            newPostView.classList.add('hidden');
-            editPostView.classList.add('hidden');
+        const views = [blogView, loginView, newPostView, editPostView];
+        function showView(targetView) {
+            views.forEach(view => {
+                if (view === targetView) {
+                    view.classList.remove('hidden');
+                    // Trigger reflow to apply transition
+                    void view.offsetWidth;
+                    view.style.opacity = '1';
+                    view.style.transform = 'translateY(0)';
+                } else {
+                    view.classList.add('hidden');
+                    view.style.opacity = '0';
+                    view.style.transform = 'translateY(10px)';
+                }
+            });
         }
 
-        function showLoginView() {
-            blogView.classList.add('hidden');
-            loginView.classList.remove('hidden');
-            newPostView.classList.add('hidden');
-            editPostView.classList.add('hidden');
-        }
-
-        function showNewPostView() {
-            blogView.classList.add('hidden');
-            loginView.classList.add('hidden');
-            newPostView.classList.remove('hidden');
-            editPostView.classList.add('hidden');
-        }
-
-        function showEditPostView() {
-            blogView.classList.add('hidden');
-            loginView.classList.add('hidden');
-            newPostView.classList.add('hidden');
-            editPostView.classList.remove('hidden');
-        }
-        
-        loginNavButton.addEventListener('click', showLoginView);
-        newPostNavButton.addEventListener('click', showNewPostView);
+        loginNavButton.addEventListener('click', () => showView(loginView));
+        newPostNavButton.addEventListener('click', () => showView(newPostView));
         logo.addEventListener('click', (e) => {
             e.preventDefault();
             window.location.hash = '#page=1';
-            showBlogView();
+            showView(blogView);
         });
 
     </script>
 </body>
+
 </html>
