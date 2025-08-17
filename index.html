@@ -335,6 +335,7 @@
 
             const currentUser = auth.currentUser;
             paginatedPosts.forEach((postData) => {
+                // **MODIFIED** Pass currentUser to the summary element function
                 const postElement = createPostSummaryElement(postData.post, postData.id, currentUser);
                 postsContainer.appendChild(postElement);
             });
@@ -379,17 +380,26 @@
             return sanitizedText.replace(urlPattern, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-purple-400 hover:underline">$1</a>');
         }
 
-        // Creates a post SUMMARY for the main blog list
-        function createPostSummaryElement(post, postId) {
+        // **MODIFIED** Creates a post SUMMARY for the main blog list
+        function createPostSummaryElement(post, postId, user) {
+            // Added 'group' for hover effect on image
             const article = document.createElement('article');
-            article.className = 'post-article bg-[#111111] border border-gray-800 rounded-xl p-6 md:p-8 transition-all duration-300 hover:shadow-2xl hover:shadow-black hover:-translate-y-1';
+            article.className = 'group post-article bg-[#111111] border border-gray-800 rounded-xl p-6 md:p-8 transition-all duration-300 hover:shadow-2xl hover:shadow-black hover:-translate-y-1';
             
             const formattedDate = post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'Just now';
             
+            // **MODIFIED** Add edit button if user is logged in
+            const editButtonHtml = user ? `<button data-id="${postId}" class="edit-post-button text-sm text-gray-400 hover:text-white transition-colors ml-4">&middot; Edit</button>` : '';
+
             const summary = post.content.length > 250 ? post.content.substring(0, 250) + '...' : post.content;
             const formattedSummary = summary.replace(/</g, "&lt;").replace(/>/g, "&gt;").split('\n').filter(p => p.trim() !== '').map(p => `<p>${p}</p>`).join('');
 
-            const imageHtml = post.imageUrl ? `<a href="#post/${postId}"><img class="w-full h-auto rounded-lg mb-6 shadow-lg" src="${post.imageUrl}" alt="${post.title}" onerror="this.onerror=null;this.style.display='none';"></a>` : '';
+            // **MODIFIED** Image container with fixed height and object-cover
+            const imageHtml = post.imageUrl ? `
+                <a href="#post/${postId}" class="block overflow-hidden rounded-lg mb-6 shadow-lg">
+                    <img class="w-full max-h-72 object-cover object-center transition-transform duration-300 group-hover:scale-105" src="${post.imageUrl}" alt="${post.title}" onerror="this.onerror=null;this.parentElement.style.display='none';">
+                </a>` : '';
+
             const authorIconHtml = `<div class="flex items-center justify-center w-10 h-10 rounded-full mr-4 border-2 border-gray-700 bg-gray-800 font-bold text-sm">LV</div>`;
 
             article.innerHTML = `
@@ -401,6 +411,7 @@
                     <div class="flex items-center mb-6 text-gray-400">
                         ${authorIconHtml}
                         <span>By <span class="font-semibold text-gray-200">${post.author}</span> &middot; ${formattedDate}</span>
+                        ${editButtonHtml}
                     </div>
                     <div class="text-gray-300 leading-relaxed space-y-4">
                         ${formattedSummary}
@@ -418,7 +429,6 @@
             
             const formattedDate = post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'Just now';
             
-            // Linkify and format content
             const linkedContent = autoLink(post.content);
             const formattedContent = linkedContent.split('\n').filter(p => p.trim() !== '').map(p => `<p>${p}</p>`).join('');
 
@@ -435,7 +445,6 @@
                         <span>By <span class="font-semibold text-gray-200">${post.author}</span> &middot; ${formattedDate}</span>
                         ${editButtonHtml}
                     </div>
-                    <!-- Using Tailwind's typography plugin for beautiful text styling -->
                     <div class="prose prose-invert max-w-none text-lg leading-relaxed">
                         ${formattedContent}
                     </div>
@@ -587,7 +596,6 @@
             window.location.hash = '#page=1';
         });
         backToBlogButton.addEventListener('click', () => {
-            // A more robust way to go back to the list
             if (document.referrer.includes(window.location.origin)) {
                 window.history.back();
             } else {
